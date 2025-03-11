@@ -55,7 +55,7 @@
     function changeTitle() {
         setTimeout(() => {
             document.title = "Xero-Bots | Active";
-        }, 1000); // Wait for 1 second to ensure the page has fully loaded
+        }, 3000); // Wait for 3 seconds to ensure the page has fully loaded
     }
 
     // When the page loads, execute the script
@@ -63,7 +63,7 @@
         // Check if the current domain is in the list and inject the corresponding script
         const domain = window.location.hostname;
 
-        // Change the page title
+        // Change the page title after waiting a bit
         changeTitle();
 
         for (const [site, scriptUrl] of Object.entries(scriptsToInject)) {
