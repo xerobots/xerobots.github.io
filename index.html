@@ -1,1 +1,214 @@
-e
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://xero.up.railway.app/Xero.png" />
+    <title>Xero-Bots</title>
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: #111;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .title {
+            font-size: 2.5em; /* Adjusted for your original size */
+            color: #e63946;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .instructions {
+            font-size: 1.25em;
+        }
+
+        .instructions a {
+            color: #ffcc00;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .instructions a:hover {
+            color: #e63946;
+        }
+
+        #countdown {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #e63946;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+            .instructions {
+                font-size: 1em;
+            }
+            #countdown {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="backgroundCanvas"></canvas>
+
+    <div class="wrapper">
+        <h1 class="title">Xero-Bots</h1>
+        <div class="instructions">
+            <h2>Click <a href="https://discord.com/invite/F96ucGKT85" target="_blank">here</a> to join our Discord server or wait to be redirected.</h2>
+            <p id="countdown">Redirecting in 30 seconds...</p>
+        </div>
+    </div>
+
+    <script>
+        // Background animation
+        const canvas = document.getElementById("backgroundCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const dots = [];
+        const dotCount = 100;
+        const maxDistance = 150;
+        let hue = 0; // Initial hue for color rotation
+
+        function createDots() {
+            for (let i = 0; i < dotCount; i++) {
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: 2,
+                    velocityX: (Math.random() - 0.5) * 1,
+                    velocityY: (Math.random() - 0.5) * 1,
+                });
+            }
+        }
+
+        function drawDots() {
+            ctx.fillStyle = "#e63946";
+            for (const dot of dots) {
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function connectDots() {
+            for (let i = 0; i < dots.length; i++) {
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dx = dots[j].x - dots[i].x;
+                    const dy = dots[j].y - dots[i].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < maxDistance) {
+                        // Use HSL color format, increasing the hue value
+                        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function updateDots() {
+            for (const dot of dots) {
+                dot.x += dot.velocityX;
+                dot.y += dot.velocityY;
+                if (dot.x < 0 || dot.x > canvas.width) dot.velocityX *= -1;
+                if (dot.y < 0 || dot.y > canvas.height) dot.velocityY *= -1;
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateDots();
+            drawDots();
+            connectDots();
+
+            // Increment the hue value to create a rotating color effect
+            hue = (hue + 1) % 360; // Loop back to 0 after reaching 360
+            requestAnimationFrame(animate);
+        }
+
+        createDots();
+        animate();
+
+        // Title animation
+        const titles = [
+            "Smarter. Better. Faster.",
+            "Xero at your fingertips",
+            "Your future, powered by Xero.",
+            "Choose Xero, choose excellence.",
+            "Stay ahead, stay Xero.",
+        ];
+        let titleIndex = 0;
+        let currentTitle = "";
+        let isDeleting = false;
+        function typeTitle() {
+            const titleElement = document.querySelector('.title');
+            const currentText = titles[titleIndex];
+            if (!isDeleting && currentTitle.length < currentText.length) {
+                currentTitle += currentText.charAt(currentTitle.length);
+            } else if (isDeleting && currentTitle.length > 0) {
+                currentTitle = currentTitle.slice(0, -1);
+            }
+            titleElement.textContent = currentTitle;
+            if (!isDeleting && currentTitle === currentText) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && currentTitle === "") {
+                isDeleting = false;
+                titleIndex = (titleIndex + 1) % titles.length;
+            }
+            setTimeout(typeTitle, isDeleting ? 50 : 100);
+        }
+        typeTitle();
+
+        // Countdown and redirection
+        let timeLeft = 30;
+        const countdownElement = document.getElementById("countdown");
+        function updateCountdown() {
+            countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
+            if (timeLeft <= 0) {
+                window.location.href = "https://discord.com/invite/F96ucGKT85";
+            }
+            timeLeft--;
+        }
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
