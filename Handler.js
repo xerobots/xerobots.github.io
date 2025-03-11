@@ -52,10 +52,19 @@
     }
 
     // Change the title to "Xero-Bots | Active"
-    function changeTitle() {
+    function changeTitle(targetTitle, retries = 5, delay = 1000) {
         setTimeout(() => {
-            document.title = "Xero-Bots | Active";
-        }, 3000); // Wait for 3 seconds to ensure the page has fully loaded
+            // Check if the title is already correct
+            if (document.title !== targetTitle && retries > 0) {
+                document.title = targetTitle;
+                console.log(`Trying to set title to "${targetTitle}"`);
+
+                // If it still doesn't match, retry
+                changeTitle(targetTitle, retries - 1, delay);
+            } else if (retries === 0) {
+                console.error("Failed to change the title after multiple attempts.");
+            }
+        }, delay);
     }
 
     // When the page loads, execute the script
@@ -63,8 +72,8 @@
         // Check if the current domain is in the list and inject the corresponding script
         const domain = window.location.hostname;
 
-        // Change the page title after waiting a bit
-        changeTitle();
+        // Change the page title if it's not the right one
+        changeTitle("Xero-Bots | Active");
 
         for (const [site, scriptUrl] of Object.entries(scriptsToInject)) {
             if (domain.includes(site)) {
