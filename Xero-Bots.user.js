@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Xero-Bots Beta | .io Bots 2025
-// @namespace    https://xero.up.railway.app/
+// @namespace    https://xerobots.github.io/
 // @description  Best bots for .io
 // @author       Tatsuya & Enes & Neobots-dev/Slxsher & xviizenn
 // @match        *://agar.cc/*
