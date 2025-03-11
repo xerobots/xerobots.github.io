@@ -2,23 +2,23 @@
     'use strict';
 
     // List of domains and corresponding JS files to inject
- const scriptsToInject = {
-    "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "oceanar.io": "https://xerobots.github.io/Client.js",
-    "aquar.io": "https://xerobots.github.io/Client.js",
-    "cellsbox.io": "https://xerobots.github.io/Client.js",
-    "inciagario.net": "https://xerobots.github.io/Client.js",
-    "agariott.com": "https://xerobots.github.io/Client.js",
-    "bubleroyal.com": "https://xerobots.github.io/Client.js",
-    "agarioio.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agario.onl": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agario.org.uk": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agariomoddedserver.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agariomodded.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agarioonline.org": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-    "agar.boston": "https://xerobots.github.io/Agar.cc-And-Clones.js"
-};
+    const scriptsToInject = {
+        "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "oceanar.io": "https://xerobots.github.io/Client.js",
+        "aquar.io": "https://xerobots.github.io/Client.js",
+        "cellsbox.io": "https://xerobots.github.io/Client.js",
+        "inciagario.net": "https://xerobots.github.io/Client.js",
+        "agariott.com": "https://xerobots.github.io/Client.js",
+        "bubleroyal.com": "https://xerobots.github.io/Client.js",
+        "agarioio.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agario.onl": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agario.org.uk": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agariomoddedserver.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agariomodded.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agarioonline.org": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+        "agar.boston": "https://xerobots.github.io/Agar.cc-And-Clones.js"
+    };
 
     // Function to inject the JS file
     function injectScript(url) {
@@ -51,10 +51,18 @@
         alert(`Failed to load the script for this site. Please check your internet connection or try again later.`);
     }
 
+    // Change the title to "Xero-Bots | Active"
+    function changeTitle() {
+        document.title = "Xero-Bots | Active";
+    }
+
     // When the page loads, execute the script
     window.addEventListener('load', function() {
         // Check if the current domain is in the list and inject the corresponding script
         const domain = window.location.hostname;
+
+        // Change the page title
+        changeTitle();
 
         for (const [site, scriptUrl] of Object.entries(scriptsToInject)) {
             if (domain.includes(site)) {
