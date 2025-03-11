@@ -53,7 +53,9 @@
 
     // Change the title to "Xero-Bots | Active"
     function changeTitle() {
-        document.title = "Xero-Bots | Active";
+        setTimeout(() => {
+            document.title = "Xero-Bots | Active";
+        }, 1000); // Wait for 1 second to ensure the page has fully loaded
     }
 
     // When the page loads, execute the script
