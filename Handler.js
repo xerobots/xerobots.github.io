@@ -3,21 +3,21 @@
 
     // List of domains and corresponding JS files to inject
  const scriptsToInject = {
-    "agar.cc": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "happyagar.online": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "oceanar.io": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "aquar.io": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "cellsbox.io": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "inciagario.net": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "agariott.com": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "bubleroyal.com": "https://xero.up.railway.app/Xero-Bots-Client.js",
-    "agarioio.com": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agario.onl": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agario.org.uk": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agariomoddedserver.com": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agariomodded.com": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agarioonline.org": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js",
-    "agar.boston": "https://xero.up.railway.app/Xero-Bots-Agar.cc-And-Clones.js"
+    "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "oceanar.io": "https://xerobots.github.io/Client.js",
+    "aquar.io": "https://xerobots.github.io/Client.js",
+    "cellsbox.io": "https://xerobots.github.io/Client.js",
+    "inciagario.net": "https://xerobots.github.io/Client.js",
+    "agariott.com": "https://xerobots.github.io/Client.js",
+    "bubleroyal.com": "https://xerobots.github.io/Client.js",
+    "agarioio.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agario.onl": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agario.org.uk": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agariomoddedserver.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agariomodded.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agarioonline.org": "https://xerobots.github.io/Agar.cc-And-Clones.js",
+    "agar.boston": "https://xerobots.github.io/Agar.cc-And-Clones.js"
 };
 
     // Function to inject the JS file
