@@ -22,10 +22,10 @@
 // @run-at       document-start
 // @grant        none
 // @license      MIT
-// @icon         https://xero.up.railway.app/Xero.png
-// @require      https://xero.up.railway.app/Xero-Bots-Handler.js
-// @updateURL    https://xero.up.railway.app/Xero-Bots.user.js
-// @downloadURL  https://xero.up.railway.app/Xero-Bots.user.js
+// @icon         https://xerobots.github.io/Xero.png
+// @require      https://xerobots.github.io/Handler.js
+// @updateURL    https://xerobots.github.io/Xero-Bots.user.js
+// @downloadURL  https://xerobots.github.io/Xero-Bots.user.js
 // ==/UserScript==
 
 /*
