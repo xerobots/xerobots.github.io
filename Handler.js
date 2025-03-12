@@ -1,4 +1,4 @@
-setTimeout(() => {
+(() => {
     const scripts = {
         "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
         "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
@@ -18,13 +18,31 @@ setTimeout(() => {
     };
 
     const hostname = window.location.hostname;
+
     if (scripts[hostname]) {
-        setTimeout(() => {
+        function injectScript(retries = 3) {
+            if (document.querySelector(`script[src='${scripts[hostname]}']`)) {
+                console.log("Script already injected successfully.");
+                return;
+            }
+
             const script = document.createElement('script');
             script.src = scripts[hostname];
             script.async = true;
+            script.onload = () => console.log(`Successfully injected script: ${script.src}`);
+            script.onerror = () => {
+                console.error(`Failed to load script: ${script.src}`);
+                if (retries > 0) {
+                    console.log(`Retrying injection... (${retries} attempts left)`);
+                    injectScript(retries - 1);
+                } else {
+                    console.error("Script injection failed after multiple attempts.");
+                }
+            };
+
             document.head.appendChild(script);
-            console.log(`Injected script: ${script.src}`);
-        }, 2000); // Additional delay to ensure stability
+        }
+
+        injectScript();
     }
-}, 8000); // Initial delay before processing
+})();
