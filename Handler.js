@@ -1,9 +1,10 @@
 (() => {
     const scripts = {
+        "oceanar.io": "https://xerobots.github.io/Client.js",
         "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
         "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "oceanar.io": "https://xerobots.github.io/Client.js",
         "aquar.io": "https://xerobots.github.io/Client.js",
+        "easyagario.icu": "https://xerobots.github.io/Agar.cc-And-Clones.js",
         "cellsbox.io": "https://xerobots.github.io/Client.js",
         "inciagario.net": "https://xerobots.github.io/Client.js",
         "agariott.com": "https://xerobots.github.io/Client.js",
