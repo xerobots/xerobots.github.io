@@ -3,10 +3,11 @@
 // @namespace    https://xerobots.github.io/
 // @description  Best bots for .io
 // @author       Tatsuya & Enes & Neobots-dev/Slxsher & xviizenn
+// @match        *://oceanar.io/*
 // @match        *://agar.cc/*
 // @match        *://happyagar.online/*
-// @match        *://oceanar.io/*
 // @match        *://aquar.io/*
+// @match        *://easyagario.icu/*
 // @match        *://cellsbox.io/*
 // @match        *://inciagario.net/*
 // @match        *://agariott.com/*
