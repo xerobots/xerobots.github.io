@@ -8,6 +8,7 @@
 // @match        *://happyagar.online/*
 // @match        *://aquar.io/*
 // @match        *://easyagario.icu/*
+// @match        *://agarprivateservers.org/*
 // @match        *://cellsbox.io/*
 // @match        *://inciagario.net/*
 // @match        *://agariott.com/*
