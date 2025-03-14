@@ -41,7 +41,7 @@
         }
 
         .title {
-            font-size: 2.5em; /* Adjusted for your original size */
+            font-size: 2.5em;
             color: #e63946;
             margin-bottom: 20px;
             white-space: nowrap;
@@ -69,15 +69,9 @@
         }
 
         @media (max-width: 768px) {
-            .title {
-                font-size: 2em;
-            }
-            .instructions {
-                font-size: 1em;
-            }
-            #countdown {
-                font-size: 1.2em;
-            }
+            .title { font-size: 2em; }
+            .instructions { font-size: 1em; }
+            #countdown { font-size: 1.2em; }
         }
     </style>
 </head>
@@ -94,35 +88,40 @@
     </div>
 
     <script>
-        // Background animation
         const canvas = document.getElementById("backgroundCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const dots = [];
+        let dots = [];
         const dotCount = 100;
         const maxDistance = 150;
-        let hue = 0; // Initial hue for color rotation
+        let hue = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         function createDots() {
+            dots = [];
             for (let i = 0; i < dotCount; i++) {
                 dots.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     radius: 2,
-                    velocityX: (Math.random() - 0.5) * 1,
-                    velocityY: (Math.random() - 0.5) * 1,
+                    velocityX: (Math.random() - 0.5),
+                    velocityY: (Math.random() - 0.5),
                 });
             }
         }
 
         function drawDots() {
             ctx.fillStyle = "#e63946";
-            for (const dot of dots) {
+            dots.forEach(dot => {
                 ctx.beginPath();
                 ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
                 ctx.fill();
-            }
+            });
         }
 
         function connectDots() {
@@ -132,7 +131,6 @@
                     const dy = dots[j].y - dots[i].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < maxDistance) {
-                        // Use HSL color format, increasing the hue value
                         ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
@@ -145,12 +143,12 @@
         }
 
         function updateDots() {
-            for (const dot of dots) {
+            dots.forEach(dot => {
                 dot.x += dot.velocityX;
                 dot.y += dot.velocityY;
                 if (dot.x < 0 || dot.x > canvas.width) dot.velocityX *= -1;
                 if (dot.y < 0 || dot.y > canvas.height) dot.velocityY *= -1;
-            }
+            });
         }
 
         function animate() {
@@ -158,57 +156,34 @@
             updateDots();
             drawDots();
             connectDots();
-
-            // Increment the hue value to create a rotating color effect
-            hue = (hue + 1) % 360; // Loop back to 0 after reaching 360
+            hue = (hue + 1) % 360;
             requestAnimationFrame(animate);
         }
 
         createDots();
         animate();
 
-        // Title animation
         const titles = [
-            "Smarter. Better. Faster.",
-            "Xero at your fingertips",
+            "Smarter. Better. Faster.", 
+            "Xero at your fingertips", 
             "Your future, powered by Xero.",
-            "Choose Xero, choose excellence.",
-            "Stay ahead, stay Xero.",
+            "Xero: Simplify your world.",
+            "Xero: Excellence at a glance.",
+            "Xero: Powering your potential."
         ];
-        let titleIndex = 0;
-        let currentTitle = "";
-        let isDeleting = false;
+        let titleIndex = 0, currentTitle = "", isDeleting = false;
+        const titleElement = document.querySelector('.title');
+
         function typeTitle() {
-            const titleElement = document.querySelector('.title');
-            const currentText = titles[titleIndex];
-            if (!isDeleting && currentTitle.length < currentText.length) {
-                currentTitle += currentText.charAt(currentTitle.length);
-            } else if (isDeleting && currentTitle.length > 0) {
-                currentTitle = currentTitle.slice(0, -1);
-            }
+            if (!titleElement) return;
+            const text = titles[titleIndex];
+            currentTitle = isDeleting ? text.slice(0, currentTitle.length - 1) : text.slice(0, currentTitle.length + 1);
             titleElement.textContent = currentTitle;
-            if (!isDeleting && currentTitle === currentText) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && currentTitle === "") {
-                isDeleting = false;
-                titleIndex = (titleIndex + 1) % titles.length;
-            }
+            if (!isDeleting && currentTitle === text) setTimeout(() => isDeleting = true, 2000);
+            else if (isDeleting && currentTitle === "") { isDeleting = false; titleIndex = (titleIndex + 1) % titles.length; }
             setTimeout(typeTitle, isDeleting ? 50 : 100);
         }
         typeTitle();
-
-        // Countdown and redirection
-        let timeLeft = 30;
-        const countdownElement = document.getElementById("countdown");
-        function updateCountdown() {
-            countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
-            if (timeLeft <= 0) {
-                window.location.href = "https://discord.com/invite/F96ucGKT85";
-            }
-            timeLeft--;
-        }
-        setInterval(updateCountdown, 1000);
     </script>
-
 </body>
 </html>
