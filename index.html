@@ -46,6 +46,7 @@
             margin-bottom: 20px;
             white-space: nowrap;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            transition: color 2s ease-in-out;
         }
 
         .instructions {
@@ -66,6 +67,7 @@
             font-size: 1.5em;
             margin-top: 20px;
             color: #e63946;
+            transition: color 2s ease-in-out;
         }
 
         @media (max-width: 768px) {
@@ -88,6 +90,7 @@
     </div>
 
     <script>
+        // Title animation
         const titles = [
             "Smarter. Better. Faster.", 
             "Xero at your fingertips", 
@@ -130,6 +133,53 @@
             timeLeft--;
         }
         setInterval(updateCountdown, 1000);
+
+        // Smooth color transition for red text
+        function changeColor() {
+            const hue = (Date.now() / 20) % 360;
+            document.querySelector('.title').style.color = `hsl(${hue}, 100%, 50%)`;
+            document.querySelector('#countdown').style.color = `hsl(${hue}, 100%, 50%)`;
+            requestAnimationFrame(changeColor);
+        }
+        changeColor();
+
+        // Background animation
+        const canvas = document.getElementById("backgroundCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const dots = [];
+        const dotCount = 100;
+        const maxDistance = 150;
+
+        function createDots() {
+            for (let i = 0; i < dotCount; i++) {
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: 2,
+                    velocityX: (Math.random() - 0.5) * 1,
+                    velocityY: (Math.random() - 0.5) * 1,
+                });
+            }
+        }
+
+        function drawDots() {
+            ctx.fillStyle = "#e63946";
+            for (const dot of dots) {
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animateBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawDots();
+            requestAnimationFrame(animateBackground);
+        }
+        createDots();
+        animateBackground();
     </script>
 </body>
 </html>
