@@ -7,7 +7,7 @@
 // @match        *://agar.cc/*
 // @match        *://happyagar.online/*
 // @match        *://aquar.io/*
-// @match        *://*.gota.io/*
+// @match        *://gota.io/web/*
 // @match        *://easyagario.icu/*
 // @match        *://agarprivateservers.org/*
 // @match        *://cellsbox.io/*
