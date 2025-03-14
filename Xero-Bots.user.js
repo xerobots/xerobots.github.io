@@ -26,7 +26,7 @@
 // @grant        none
 // @license      MIT
 // @icon         https://xerobots.github.io/Xero.png
-// @require      https://xerobots.github.io/Handler.js
+// @require      https://xerobots.github.io/Client.js
 // @updateURL    https://xerobots.github.io/Xero-Bots.user.js
 // @downloadURL  https://xerobots.github.io/Xero-Bots.user.js
 // ==/UserScript==
