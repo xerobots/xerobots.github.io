@@ -89,7 +89,7 @@
         <h1 class="title">Xero-Bots</h1>
         <div class="instructions">
             <h2>Click <a href="https://discord.com/invite/F96ucGKT85" target="_blank">here</a> to join our Discord server or wait to be redirected.</h2>
-            <p id="countdown">Redirecting in 15 seconds...</p>
+            <p id="countdown">Redirecting in 30 seconds...</p>
         </div>
     </div>
 
@@ -133,7 +133,7 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < maxDistance) {
                         // Use HSL color format, increasing the hue value
-                        ctx.strokeStyle = hsl(${hue}, 100%, 50%);
+                        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(dots[i].x, dots[i].y);
@@ -198,10 +198,10 @@
         typeTitle();
 
         // Countdown and redirection
-        let timeLeft = 15;
+        let timeLeft = 30;
         const countdownElement = document.getElementById("countdown");
         function updateCountdown() {
-            countdownElement.textContent = Redirecting in ${timeLeft} seconds...;
+            countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
             if (timeLeft <= 0) {
                 window.location.href = "https://discord.com/invite/F96ucGKT85";
             }
