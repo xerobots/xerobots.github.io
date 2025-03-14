@@ -1,7 +1,7 @@
  // ==UserScript==
 // @name         Xero-Bots Beta | .io Bots 2025
 // @namespace    https://xerobots.github.io/
-// @description  Best bots for .io
+// @description  Best bots for agar.io clones and more
 // @author       Tatsuya & Enes & Neobots-dev/Slxsher & xviizenn
 // @match        *://oceanar.io/*
 // @match        *://agar.cc/*
