@@ -1,6 +1,6 @@
-// ==UserScript==
+ // ==UserScript==
 // @name         Xero-Bots Beta | .io Bots 2025
-// @namespace    //xerobots.github.io/
+// @namespace    https://xerobots.github.io/
 // @description  Best bots for .io
 // @author       Tatsuya & Enes & Neobots-dev/Slxsher & xviizenn
 // @match        *://oceanar.io/*
@@ -25,10 +25,10 @@
 // @run-at       document-start
 // @grant        none
 // @license      MIT
-// @icon         //xerobots.github.io/Xero.png
-// @require      //xerobots.github.io/Client.js
-// @updateURL    //xerobots.github.io/Xero-Bots.user.js
-// @downloadURL  //xerobots.github.io/Xero-Bots.user.js
+// @icon         https://xerobots.github.io/Xero.png
+// @require      https://xerobots.github.io/Client.js
+// @updateURL    https://xerobots.github.io/Xero-Bots.user.js
+// @downloadURL  https://xerobots.github.io/Xero-Bots.user.js
 // ==/UserScript==
 
 /*
