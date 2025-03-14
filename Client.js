@@ -1,23 +1,23 @@
 (() => {
     const scripts = {
-        "oceanar.io": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "agar.cc": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "happyagar.online": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "aquar.io": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "gota.io/web": "https://xerobots.github.io/Gota.js",
-        "easyagario.icu": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agarprivateservers.org": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "cellsbox.io": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "inciagario.net": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "agariott.com": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "bubleroyal.com": "https://xerobots.github.io/OceanarAndBubleAndMore.js",
-        "agarioio.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agario.onl": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agario.org.uk": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agariomoddedserver.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agariomodded.com": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agarioonline.org": "https://xerobots.github.io/Agar.cc-And-Clones.js",
-        "agar.boston": "https://xerobots.github.io/Agar.cc-And-Clones.js"
+        "oceanar.io": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "agar.cc": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "happyagar.online": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "aquar.io": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "gota.io/web": "//xerobots.github.io/Gota.js",
+        "easyagario.icu": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agarprivateservers.org": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "cellsbox.io": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "inciagario.net": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "agariott.com": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "bubleroyal.com": "//xerobots.github.io/OceanarAndBubleAndMore.js",
+        "agarioio.com": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agario.onl": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agario.org.uk": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agariomoddedserver.com": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agariomodded.com": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agarioonline.org": "//xerobots.github.io/Agar.cc-And-Clones.js",
+        "agar.boston": "//xerobots.github.io/Agar.cc-And-Clones.js"
     };
 
     const hostname = window.location.hostname;
