@@ -23,7 +23,7 @@
     const hostname = window.location.hostname;
 
     if (scripts[hostname]) {
-        function injectScript(retries = 3) {
+        function injectScript(retries = 5) {
             if (document.querySelector(`script[src='${scripts[hostname]}']`)) {
                 console.log("Script already injected successfully.");
                 return;
