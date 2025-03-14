@@ -88,81 +88,6 @@
     </div>
 
     <script>
-        const canvas = document.getElementById("backgroundCanvas");
-        const ctx = canvas.getContext("2d");
-        let dots = [];
-        const dotCount = 100;
-        const maxDistance = 150;
-        let hue = 0;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        function createDots() {
-            dots = [];
-            for (let i = 0; i < dotCount; i++) {
-                dots.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: 2,
-                    velocityX: (Math.random() - 0.5),
-                    velocityY: (Math.random() - 0.5),
-                });
-            }
-        }
-
-        function drawDots() {
-            ctx.fillStyle = "#e63946";
-            dots.forEach(dot => {
-                ctx.beginPath();
-                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-        }
-
-        function connectDots() {
-            for (let i = 0; i < dots.length; i++) {
-                for (let j = i + 1; j < dots.length; j++) {
-                    const dx = dots[j].x - dots[i].x;
-                    const dy = dots[j].y - dots[i].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < maxDistance) {
-                        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(dots[i].x, dots[i].y);
-                        ctx.lineTo(dots[j].x, dots[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function updateDots() {
-            dots.forEach(dot => {
-                dot.x += dot.velocityX;
-                dot.y += dot.velocityY;
-                if (dot.x < 0 || dot.x > canvas.width) dot.velocityX *= -1;
-                if (dot.y < 0 || dot.y > canvas.height) dot.velocityY *= -1;
-            });
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            updateDots();
-            drawDots();
-            connectDots();
-            hue = (hue + 1) % 360;
-            requestAnimationFrame(animate);
-        }
-
-        createDots();
-        animate();
-
         const titles = [
             "Smarter. Better. Faster.", 
             "Xero at your fingertips", 
@@ -171,16 +96,25 @@
             "Xero: Excellence at a glance.",
             "Xero: Powering your potential."
         ];
-        let titleIndex = 0, currentTitle = "", isDeleting = false;
+        let titleIndex = 0, currentTitle = "", isDeleting = false, charIndex = 0;
         const titleElement = document.querySelector('.title');
 
         function typeTitle() {
             if (!titleElement) return;
             const text = titles[titleIndex];
-            currentTitle = isDeleting ? text.slice(0, currentTitle.length - 1) : text.slice(0, currentTitle.length + 1);
-            titleElement.textContent = currentTitle;
-            if (!isDeleting && currentTitle === text) setTimeout(() => isDeleting = true, 2000);
-            else if (isDeleting && currentTitle === "") { isDeleting = false; titleIndex = (titleIndex + 1) % titles.length; }
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+            titleElement.textContent = text.substring(0, charIndex);
+
+            if (!isDeleting && charIndex === text.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                titleIndex = (titleIndex + 1) % titles.length;
+            }
             setTimeout(typeTitle, isDeleting ? 50 : 100);
         }
         typeTitle();
