@@ -21,7 +21,7 @@
 // @match        *://agariomodded.com/*
 // @match        *://agarioonline.org/*
 // @match        *://agar.boston/*
-// @version      1.0.0
+// @version      14/03/2025
 // @run-at       document-start
 // @grant        none
 // @license      MIT
