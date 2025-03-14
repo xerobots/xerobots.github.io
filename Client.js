@@ -4,7 +4,7 @@
         "agar.cc": "//xerobots.github.io/Agar.cc-And-Clones.js",
         "happyagar.online": "//xerobots.github.io/Agar.cc-And-Clones.js",
         "aquar.io": "//xerobots.github.io/OceanarAndBubleAndMore.js",
-        "gota.io/web": "//xerobots.github.io/Gota.js",
+        "gota.io": "//xerobots.github.io/Gota.js",
         "easyagario.icu": "//xerobots.github.io/Agar.cc-And-Clones.js",
         "agarprivateservers.org": "//xerobots.github.io/Agar.cc-And-Clones.js",
         "cellsbox.io": "//xerobots.github.io/OceanarAndBubleAndMore.js",
