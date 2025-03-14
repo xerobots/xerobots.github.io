@@ -118,6 +118,18 @@
             setTimeout(typeTitle, isDeleting ? 50 : 100);
         }
         typeTitle();
+
+        // Countdown and redirection
+        let timeLeft = 30;
+        const countdownElement = document.getElementById("countdown");
+        function updateCountdown() {
+            countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
+            if (timeLeft <= 0) {
+                window.location.href = "https://discord.com/invite/F96ucGKT85";
+            }
+            timeLeft--;
+        }
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
