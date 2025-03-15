@@ -1,214 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://xerobots.github.io/Xero.png" />
-    <title>Xero-Bots</title>
-
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            background-color: #111;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .wrapper {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 600px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: rgba(30, 30, 30, 0.8);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .title {
-            font-size: 2.5em; /* Adjusted for your original size */
-            color: #e63946;
-            margin-bottom: 20px;
-            white-space: nowrap;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .instructions {
-            font-size: 1.25em;
-        }
-
-        .instructions a {
-            color: #ffcc00;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .instructions a:hover {
-            color: #e63946;
-        }
-
-        #countdown {
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #e63946;
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2em;
-            }
-            .instructions {
-                font-size: 1em;
-            }
-            #countdown {
-                font-size: 1.2em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xero-Bots</title>
+  <style>
+    /* Reset and basic styling */
+    * {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    /* Canvas covers entire background */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    /* Wrapper for overlay text */
+    .wrapper {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(30, 30, 30, 0.8);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    .title {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .propaganda {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      min-height: 1.4em;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+    .instructions h2 {
+      font-size: 1.2em;
+    }
+    .instructions a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+    .instructions a:hover {
+      color: #e63946;
+    }
+    #countdown {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-
-    <canvas id="backgroundCanvas"></canvas>
-
-    <div class="wrapper">
-        <h1 class="title">Xero-Bots</h1>
-        <div class="instructions">
-            <h2>Click <a href="https://discord.com/invite/F96ucGKT85" target="_blank">here</a> to join our Discord server or wait to be redirected.</h2>
-            <p id="countdown">Redirecting in 30 seconds...</p>
-        </div>
+  <canvas id="gameCanvas"></canvas>
+  <div class="wrapper">
+    <h1 class="title" id="titleText">Xero-Bots</h1>
+    <p class="propaganda" id="propagandaText"></p>
+    <div class="instructions">
+      <h2>
+        Click <a href="https://discord.com/invite/F96ucGKT85" target="_blank">here</a> to join our Discord server or wait to be redirected.
+      </h2>
+      <p id="countdown">Redirecting in 60 seconds...</p>
     </div>
+  </div>
 
-    <script>
-        // Background animation
-        const canvas = document.getElementById("backgroundCanvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const dots = [];
-        const dotCount = 100;
-        const maxDistance = 150;
-        let hue = 0; // Initial hue for color rotation
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-        function createDots() {
-            for (let i = 0; i < dotCount; i++) {
-                dots.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: 2,
-                    velocityX: (Math.random() - 0.5) * 1,
-                    velocityY: (Math.random() - 0.5) * 1,
-                });
-            }
+    // Player configuration
+    let player = { 
+      x: canvas.width / 2, 
+      y: canvas.height / 2, 
+      radius: 30, 
+      maxRadius: 100 
+    };
+
+    let cells = [];  // moving enemy cells
+    let food = [];   // static food particles
+    let mouse = { x: player.x, y: player.y };
+
+    // Utility function to get a random color in HSL format.
+    function getRandomColor() {
+      return `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
+
+    // Generate enemy cells (with names)
+    for (let i = 0; i < 50; i++) {
+      cells.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: 5 + Math.random() * 10,
+        speed: 0.5 + Math.random() * 1.5,
+        color: getRandomColor()
+      });
+    }
+
+    // Generate food particles
+    for (let i = 0; i < 30; i++) {
+      food.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: 3 + Math.random() * 5,
+        color: getRandomColor()
+      });
+    }
+
+    // Mouse event to update target coordinates
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    // Update positions and handle collisions
+    function update() {
+      // Move player slowly towards the mouse position (0.01 multiplier for slower movement)
+      player.x += (mouse.x - player.x) * 0.01;
+      player.y += (mouse.y - player.y) * 0.01;
+
+      // Check collision with enemy cells
+      for (let i = 0; i < cells.length; i++) {
+        let cell = cells[i];
+        let dx = player.x - cell.x;
+        let dy = player.y - cell.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        // If the enemy cell is within the player's radius, "consume" it.
+        if (dist < player.radius) {
+          if (player.radius < player.maxRadius) {
+            player.radius += cell.radius * 0.1;
+          }
+          // Remove consumed cell and spawn a new one
+          cells.splice(i, 1);
+          i--;
+          cells.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: 5 + Math.random() * 10,
+            speed: 0.5 + Math.random() * 1.5,
+            color: getRandomColor()
+          });
+        } else {
+          // Move enemy cell slowly toward the player
+          cell.x += (dx / dist) * cell.speed;
+          cell.y += (dy / dist) * cell.speed;
         }
+      }
 
-        function drawDots() {
-            ctx.fillStyle = "#e63946";
-            for (const dot of dots) {
-                ctx.beginPath();
-                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
+      // Check collision with food cells
+      for (let i = 0; i < food.length; i++) {
+        let f = food[i];
+        let dx = player.x - f.x;
+        let dy = player.y - f.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < player.radius) {
+          // Increase player's size slightly (food is less potent)
+          if (player.radius < player.maxRadius) {
+            player.radius += f.radius * 0.05;
+          }
+          // Remove eaten food and spawn a new one
+          food.splice(i, 1);
+          i--;
+          food.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: 3 + Math.random() * 5,
+            color: getRandomColor()
+          });
         }
+      }
+    }
 
-        function connectDots() {
-            for (let i = 0; i < dots.length; i++) {
-                for (let j = i + 1; j < dots.length; j++) {
-                    const dx = dots[j].x - dots[i].x;
-                    const dy = dots[j].y - dots[i].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < maxDistance) {
-                        // Use HSL color format, increasing the hue value
-                        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(dots[i].x, dots[i].y);
-                        ctx.lineTo(dots[j].x, dots[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
+    // Draw everything on the canvas
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw food particles
+      food.forEach(f => {
+        ctx.fillStyle = f.color;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Draw the player cell (in blue)
+      ctx.fillStyle = "blue";
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw enemy cells with their tiny names
+      cells.forEach(cell => {
+        ctx.fillStyle = cell.color;
+        ctx.beginPath();
+        ctx.arc(cell.x, cell.y, cell.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "white";
+        ctx.font = "8px Arial";
+        ctx.fillText("xerobots.github.io", cell.x - 10, cell.y + 2);
+      });
+    }
+
+    // Animation loop
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    // Countdown redirect functionality (60 seconds)
+    let timeLeft = 60;
+    function updateCountdown() {
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
+      if (timeLeft <= 0) {
+        window.location.href = "https://discord.com/invite/F96ucGKT85";
+      }
+      timeLeft--;
+    }
+    setInterval(updateCountdown, 1000);
+
+    // Rainbow text functionality: Change color every 1 second for title, propaganda, and countdown
+    function changeRainbowColor() {
+      const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      document.getElementById("titleText").style.color = randomColor;
+      document.getElementById("countdown").style.color = randomColor;
+      // Propaganda text color will be updated during typewriter effect as well.
+    }
+    changeRainbowColor();
+    setInterval(changeRainbowColor, 1000);
+
+    // Typewriter effect for the propaganda text
+    const propagandaLines = [
+      "Smarter. Better. Faster.",
+      "Your future, powered by Xero.",
+      "Choose Xero, choose excellence.",
+      "Stay ahead, stay Xero."
+    ];
+    let currentLine = 0;
+    let currentChar = 0;
+    const propagandaEl = document.getElementById("propagandaText");
+    let typing = true;
+
+    function typeWriter() {
+      if (typing) {
+        // Type next character
+        if (currentChar < propagandaLines[currentLine].length) {
+          propagandaEl.textContent += propagandaLines[currentLine].charAt(currentChar);
+          currentChar++;
+          setTimeout(typeWriter, 100);
+        } else {
+          // Pause before deleting the line
+          typing = false;
+          setTimeout(typeWriter, 1500);
         }
-
-        function updateDots() {
-            for (const dot of dots) {
-                dot.x += dot.velocityX;
-                dot.y += dot.velocityY;
-                if (dot.x < 0 || dot.x > canvas.width) dot.velocityX *= -1;
-                if (dot.y < 0 || dot.y > canvas.height) dot.velocityY *= -1;
-            }
+      } else {
+        // Delete character by character
+        if (currentChar > 0) {
+          propagandaEl.textContent = propagandaLines[currentLine].substring(0, currentChar - 1);
+          currentChar--;
+          setTimeout(typeWriter, 50);
+        } else {
+          // Move to the next line and start typing
+          currentLine = (currentLine + 1) % propagandaLines.length;
+          typing = true;
+          setTimeout(typeWriter, 500);
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            updateDots();
-            drawDots();
-            connectDots();
-
-            // Increment the hue value to create a rotating color effect
-            hue = (hue + 1) % 360; // Loop back to 0 after reaching 360
-            requestAnimationFrame(animate);
-        }
-
-        createDots();
-        animate();
-
-        // Title animation
-        const titles = [
-            "Smarter. Better. Faster.",
-            "Xero at your fingertips",
-            "Your future, powered by Xero.",
-            "Choose Xero, choose excellence.",
-            "Stay ahead, stay Xero.",
-        ];
-        let titleIndex = 0;
-        let currentTitle = "";
-        let isDeleting = false;
-        function typeTitle() {
-            const titleElement = document.querySelector('.title');
-            const currentText = titles[titleIndex];
-            if (!isDeleting && currentTitle.length < currentText.length) {
-                currentTitle += currentText.charAt(currentTitle.length);
-            } else if (isDeleting && currentTitle.length > 0) {
-                currentTitle = currentTitle.slice(0, -1);
-            }
-            titleElement.textContent = currentTitle;
-            if (!isDeleting && currentTitle === currentText) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && currentTitle === "") {
-                isDeleting = false;
-                titleIndex = (titleIndex + 1) % titles.length;
-            }
-            setTimeout(typeTitle, isDeleting ? 50 : 100);
-        }
-        typeTitle();
-
-        // Countdown and redirection
-        let timeLeft = 30;
-        const countdownElement = document.getElementById("countdown");
-        function updateCountdown() {
-            countdownElement.textContent = `Redirecting in ${timeLeft} seconds...`;
-            if (timeLeft <= 0) {
-                window.location.href = "https://discord.com/invite/F96ucGKT85";
-            }
-            timeLeft--;
-        }
-        setInterval(updateCountdown, 1000);
-    </script>
-
+      }
+    }
+    typeWriter();
+  </script>
 </body>
 </html>
