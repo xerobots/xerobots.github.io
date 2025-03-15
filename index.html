@@ -6,7 +6,6 @@
   <title>Xero-Bots</title>
   <link rel="icon" href="https://xerobots.github.io/Xero.png" type="image/png" />
   <style>
-    /* Reset and basic styling */
     * {
       margin: 0;
       padding: 0;
@@ -22,7 +21,6 @@
       flex-direction: column;
       height: 100vh;
     }
-    /* Canvas covers entire background */
     canvas {
       position: absolute;
       top: 0;
@@ -31,7 +29,6 @@
       height: 100%;
       z-index: 1;
     }
-    /* Wrapper for overlay text */
     .wrapper {
       position: relative;
       z-index: 10;
@@ -107,8 +104,8 @@
       return `hsl(${Math.random() * 360}, 100%, 50%)`;
     }
 
-    // Generate enemy cells (with names)
-    for (let i = 0; i < 50; i++) {
+    // Generate 25 enemy cells
+    for (let i = 0; i < 25; i++) {
       cells.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -128,17 +125,24 @@
       });
     }
 
-    // Mouse event to update target coordinates
+    // Mouse event to update target coordinates for mouse (desktop)
     window.addEventListener("mousemove", (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
 
+    // Touch event to update target coordinates for touch (mobile/tablet)
+    window.addEventListener("touchmove", (e) => {
+      const touch = e.touches[0]; // Get the first touch point
+      mouse.x = touch.clientX;
+      mouse.y = touch.clientY;
+    });
+
     // Update positions and handle collisions
     function update() {
-      // Move player slowly towards the mouse position (0.01 multiplier for slower movement)
-      player.x += (mouse.x - player.x) * 0.01;
-      player.y += (mouse.y - player.y) * 0.01;
+      // Move player slowly towards the mouse/touch position (0.02 multiplier for slower movement)
+      player.x += (mouse.x - player.x) * 0.02;  // Player moves 2x faster than the previous version
+      player.y += (mouse.y - player.y) * 0.02;
 
       // Check collision with enemy cells
       for (let i = 0; i < cells.length; i++) {
@@ -249,7 +253,6 @@
       const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
       document.getElementById("titleText").style.color = randomColor;
       document.getElementById("countdown").style.color = randomColor;
-      // Propaganda text color will be updated during typewriter effect as well.
     }
     changeRainbowColor();
     setInterval(changeRainbowColor, 1000);
